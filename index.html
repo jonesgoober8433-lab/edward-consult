@@ -9,7 +9,10 @@
 @media(prefers-color-scheme:dark){:root{--bg:#12191b;--card:#1b2427;--ink:#eef2f2;--mute:#97a5a8;--line:#2b373b;--brand:#37b3a9;--brand2:#5fd0c6;--gold:#e0ad5a}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif;line-height:1.7}
-.wrap{max-width:680px;margin:0 auto;padding:32px 16px 80px}
+.wrap{max-width:680px;margin:0 auto;padding:20px 16px 80px}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--brand);font-weight:600;font-size:15px;text-decoration:none;padding:6px 2px;margin-bottom:12px}
+.back:hover{text-decoration:underline}
+.backbtn{display:inline-block;margin-top:18px;padding:12px 22px;border-radius:12px;background:var(--brand);color:#fff;font-weight:700;text-decoration:none}
 .hero{background:linear-gradient(135deg,#17504c,#1f6f6a 55%,#2fa39b);color:#fff;border-radius:20px;padding:32px 26px;position:relative;overflow:hidden}
 .hero:after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.08)}
 .tag{display:inline-block;font-size:13px;background:rgba(255,255,255,.18);padding:3px 12px;border-radius:99px;margin-bottom:12px}
@@ -47,6 +50,7 @@ select{background:var(--card);border:2px solid var(--line);border-radius:10px;pa
 </head>
 <body>
 <div class="wrap">
+  <a class="back" href="https://jonesgoober8433-lab.github.io/edward-blog/">← 回到 Edward 的 Blog</a>
   <div class="hero">
     <span class="tag">Edward 1:1 諮詢</span>
     <h1>訂製專屬的「資產自動化地圖」</h1>
@@ -62,6 +66,7 @@ select{background:var(--card);border:2px solid var(--line);border-radius:10px;pa
     <div style="font-size:48px">📩</div>
     <h2>已收到你的資料</h2>
     <p>送出表單後 24 小時內，我會親自與你聯繫，為你安排 1:1 諮詢時間。</p>
+    <a class="backbtn" href="https://jonesgoober8433-lab.github.io/edward-blog/">回到 Blog 首頁</a>
   </div>
   <div class="foot">所有個資皆保密</div>
 </div>
