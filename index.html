@@ -75,6 +75,7 @@ select{background:var(--card);border:2px solid var(--line);border-radius:10px;pa
 const FORM_ID="1FAIpQLSehdMad5-KkAoZYLd29rQkWDhNoBJK2A7HniB-DaaABEtqLjg";
 // type: sec(段落標題) note(提醒) text(短答) para(段落) radio(單選) check(複選) select(下拉)
 const Q=[
+ {type:"text",id:"email",req:1,email:1,t:"電子郵件"},
  {type:"sec",t:"📌 請挑選您目前最關注的主題，我將為您量身打造"},
  {type:"check",id:1850529778,req:1,t:"目前你在理財路上，最想解決的隱形痛點是什麼？",opts:["收入不低，但卡在「精緻窮」的循環，留不住本金","想建立「非工資收入」，但不知道如何安全配置","擔心通膨吃掉存款，想了解平均 6%-8% 的穩健配置邏輯","每天被各種新聞轟炸，缺乏獨立思考的判斷力"],other:1},
  {type:"radio",id:90713069,req:1,t:"關於「貸款與槓桿」，你目前的駕駛技術如何？",opts:["覺得是洪水猛獸，能不碰就不碰","知道它是資產引擎，但缺乏正確的「駕駛技術」，不敢開上路","已經在使用，但想優化現金流，確保煞車系統安全"]},
@@ -98,7 +99,8 @@ Q.forEach((q,i)=>{
   if(q.type==="note"){f.insertAdjacentHTML("beforeend",`<div class="note"><b>${esc(q.t)}</b>${esc(q.d)}</div>`);return}
   const n="e"+q.id, star=q.req?'<span class="req">*</span>':'';
   let body="";
-  if(q.type==="text")body=`<input type="text" name="${n}" autocomplete="off">`;
+  if(q.email)body=`<input type="email" name="${n}" autocomplete="email" placeholder="你的電子郵件">`;
+  else if(q.type==="text")body=`<input type="text" name="${n}" autocomplete="off">`;
   else if(q.type==="para")body=`<textarea name="${n}" ${q.short?'style="min-height:44px"':''}></textarea>`;
   else if(q.type==="select")body=`<select name="${n}"><option value="">選擇</option>${q.opts.map(o=>`<option>${esc(o)}</option>`).join("")}</select>`;
   else{
@@ -106,7 +108,7 @@ Q.forEach((q,i)=>{
     body=q.opts.map(o=>`<label class="opt"><input type="${t}" name="${n}" value="${esc(o)}"><span>${esc(o)}</span></label>`).join("");
     if(q.other)body+=`<label class="opt"><input type="${t}" name="${n}" value="__other_option__"><span>其他：</span><input class="other" type="text" name="${n}_other"></label>`;
   }
-  f.insertAdjacentHTML("beforeend",`<div class="q" data-n="${n}"><div class="t">${esc(q.t)}${star}</div>${body}<div class="err">這是必填問題</div></div>`);
+  f.insertAdjacentHTML("beforeend",`<div class="q" data-n="${n}"><div class="t">${esc(q.t)}${star}</div>${body}<div class="err">這是必填問題，請確認內容正確</div></div>`);
 });
 f.insertAdjacentHTML("beforeend",`<button class="submit" type="submit">送出，預約 1:1 諮詢</button>`);
 f.addEventListener("submit",async e=>{
@@ -120,11 +122,12 @@ f.addEventListener("submit",async e=>{
     else vals=els[0].value.trim()?[els[0].value.trim()]:[];
     const otherTxt=(f.querySelector(`[name="${n}_other"]`)||{}).value;
     if(vals.includes("__other_option__")&&!(otherTxt||"").trim())vals=vals.filter(v=>v!=="__other_option__");
-    const bad=q.req&&!vals.length;
+    const bad=q.req&&(!vals.length||(q.email&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(vals[0])));
     box.classList.toggle("bad",bad);if(bad&&!first)first=box;
-    vals.forEach(v=>fd.append("entry."+q.id,v));
+    vals.forEach(v=>fd.append(q.email?"emailAddress":"entry."+q.id,v));
     if(vals.includes("__other_option__"))fd.append(`entry.${q.id}.other_option_response`,otherTxt.trim());
   });
+  fd.append("pageHistory","0,1,2");fd.append("fvv","1");
   if(first){first.scrollIntoView({behavior:"smooth",block:"center"});return}
   const b=f.querySelector(".submit");b.disabled=true;b.textContent="送出中…";
   try{
