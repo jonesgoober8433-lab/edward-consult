@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>資產自動化地圖｜Edward 1:1 諮詢</title>
+<style>
+:root{--bg:#f6f3ee;--card:#fff;--ink:#1f2a2e;--mute:#6b777b;--line:#e4dfd6;--brand:#1f6f6a;--brand2:#2fa39b;--gold:#c8923a;--err:#c0392b}
+@media(prefers-color-scheme:dark){:root{--bg:#12191b;--card:#1b2427;--ink:#eef2f2;--mute:#97a5a8;--line:#2b373b;--brand:#37b3a9;--brand2:#5fd0c6;--gold:#e0ad5a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif;line-height:1.7}
+.wrap{max-width:680px;margin:0 auto;padding:32px 16px 80px}
+.hero{background:linear-gradient(135deg,#17504c,#1f6f6a 55%,#2fa39b);color:#fff;border-radius:20px;padding:32px 26px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.08)}
+.tag{display:inline-block;font-size:13px;background:rgba(255,255,255,.18);padding:3px 12px;border-radius:99px;margin-bottom:12px}
+.hero h1{margin:0 0 14px;font-size:26px;line-height:1.4}
+.hero p{margin:4px 0;opacity:.92;font-size:15px}
+.cta{display:block;width:100%;margin-top:24px;border:0;border-radius:14px;padding:16px;font-size:17px;font-weight:700;color:#3a2a08;background:linear-gradient(135deg,#f3c46b,#e0a23c);cursor:pointer;animation:glow 2.4s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(243,196,107,.0),0 4px 14px rgba(0,0,0,.18)}50%{box-shadow:0 0 0 6px rgba(243,196,107,.28),0 0 26px 6px rgba(243,196,107,.55)}}
+@media(prefers-reduced-motion:reduce){.cta{animation:none}}
+form{margin-top:28px}
+.sec{margin:30px 4px 12px;font-size:15px;font-weight:700;color:var(--brand);display:flex;align-items:center;gap:8px}
+.sec:after{content:"";flex:1;height:1px;background:var(--line)}
+.q{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 20px 18px;margin-bottom:14px;transition:border-color .2s}
+.q.bad{border-color:var(--err)}
+.q label.t,.q .t{display:block;font-weight:600;font-size:16px;white-space:pre-line;margin-bottom:12px}
+.req{color:var(--err);margin-left:4px}
+input[type=text],textarea,select{width:100%;font:inherit;color:var(--ink);background:transparent;border:0;border-bottom:2px solid var(--line);padding:8px 2px;outline:0;transition:border-color .2s}
+textarea{resize:vertical;min-height:84px;border:2px solid var(--line);border-radius:10px;padding:10px}
+input:focus,textarea:focus,select:focus{border-color:var(--brand2)}
+select{background:var(--card);border:2px solid var(--line);border-radius:10px;padding:10px}
+.opt{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;margin:6px 0;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;transition:.15s;font-size:15px}
+.opt:hover{border-color:var(--brand2)}
+.opt:has(input:checked){border-color:var(--brand);background:color-mix(in srgb,var(--brand) 10%,transparent)}
+.opt input{margin-top:5px;accent-color:var(--brand)}
+.opt .other{flex:1;border:0;border-bottom:1.5px solid var(--line);padding:2px 4px}
+.note{background:color-mix(in srgb,var(--gold) 14%,transparent);border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-radius:16px;padding:16px 18px;margin:14px 0;font-size:15px}
+.note b{display:block;margin-bottom:2px}
+.err{color:var(--err);font-size:13px;margin-top:6px;display:none}
+.q.bad .err{display:block}
+.submit{width:100%;margin-top:18px;border:0;border-radius:14px;padding:16px;font-size:17px;font-weight:700;color:#fff;background:var(--brand);cursor:pointer}
+.submit:disabled{opacity:.6}
+.done{display:none;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:48px 24px;margin-top:28px}
+.done h2{margin:8px 0}
+.foot{text-align:center;color:var(--mute);font-size:13px;margin-top:26px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <span class="tag">Edward 1:1 諮詢</span>
+    <h1>訂製專屬的「資產自動化地圖」</h1>
+    <p>你好，我是 Edward</p>
+    <p>這份盤點表不聊投機明牌，只專注於幫你理清資產底層邏輯</p>
+    <p>由於每週 1:1 諮詢名額有限，系統將優先篩選真正準備好面對自己財務現況的朋友</p>
+    <button class="cta" type="button" onclick="document.getElementById('form').scrollIntoView({behavior:'smooth'})">✨ 開始填寫，預約 1:1 諮詢</button>
+  </div>
+
+  <form id="form" novalidate></form>
+
+  <div class="done" id="done">
+    <div style="font-size:48px">📩</div>
+    <h2>已收到你的資料</h2>
+    <p>送出表單後 24 小時內，我會親自與你聯繫，為你安排 1:1 諮詢時間。</p>
+  </div>
+  <div class="foot">所有個資皆保密</div>
+</div>
+
+<script>
+const FORM_ID="1FAIpQLSehdMad5-KkAoZYLd29rQkWDhNoBJK2A7HniB-DaaABEtqLjg";
+// type: sec(段落標題) note(提醒) text(短答) para(段落) radio(單選) check(複選) select(下拉)
+const Q=[
+ {type:"sec",t:"📌 請挑選您目前最關注的主題，我將為您量身打造"},
+ {type:"check",id:1850529778,req:1,t:"目前你在理財路上，最想解決的隱形痛點是什麼？",opts:["收入不低，但卡在「精緻窮」的循環，留不住本金","想建立「非工資收入」，但不知道如何安全配置","擔心通膨吃掉存款，想了解平均 6%-8% 的穩健配置邏輯","每天被各種新聞轟炸，缺乏獨立思考的判斷力"],other:1},
+ {type:"radio",id:90713069,req:1,t:"關於「貸款與槓桿」，你目前的駕駛技術如何？",opts:["覺得是洪水猛獸，能不碰就不碰","知道它是資產引擎，但缺乏正確的「駕駛技術」，不敢開上路","已經在使用，但想優化現金流，確保煞車系統安全"]},
+ {type:"para",id:1221511328,req:1,t:"如果有一套自動化系統幫你工作，\n你最希望拿回時間主動權後去做什麼？\n\n(例如：買房、車、無後顧之憂的旅遊，或單純陪伴家人)"},
+ {type:"sec",t:"所有個資皆保密，可以安心填寫"},
+ {type:"text",id:357139033,req:1,t:"姓名 / 我該如何稱呼你"},
+ {type:"para",id:1869753939,req:0,t:"社群帳號",short:1},
+ {type:"text",id:1334008284,req:1,t:"請留下您的聯絡方式\n＊例如：Line：abc123 / 手機號碼：0912345678"},
+ {type:"text",id:875335729,req:1,t:"目前從事職業"},
+ {type:"radio",id:45725700,req:0,t:"以前有在理財這件事上花過多少錢學習或請教練嗎？",opts:["5,000 元以下","5,000-10,000","10,000-20,000","20,000-50,000","50,000 以上"],other:1},
+ {type:"check",id:1813289331,req:1,t:"💼 目前有在使用的金融工具（可複選）",opts:["銀行活存／定存（台幣）","美元定存","儲蓄型保單","股票","基金","債券","期貨/選擇權","房地產","加密貨幣（如比特幣、以太幣）","都沒有，目前想開始了解"],other:1},
+ {type:"text",id:517003960,req:1,t:"所在縣市"},
+ {type:"check",id:1698962558,req:1,t:"📞 方便聯絡時段（可複選）",opts:["平日｜白天（10:00–18:00）","平日｜晚上（18:00–21:00）","假日｜白天（10:00–18:00）","假日｜晚上（18:00–21:00）"],other:1},
+ {type:"note",t:"📌 小提醒：我會依照你填寫的時間安排聯絡，讓我們都更有效率！",d:"📩 送出表單後 24 小時內，我會親自與你聯繫，為你安排 1:1 諮詢時間。"},
+ {type:"select",id:806428003,req:1,t:"📲 你是透過哪裡得知 Edward 的理財平台？",opts:["Edward 的部落格","Instagram","Facebook","朋友分享的文章／限動","客戶介紹","Edward 本人"]}
+];
+const f=document.getElementById("form");
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+Q.forEach((q,i)=>{
+  if(q.type==="sec"){f.insertAdjacentHTML("beforeend",`<div class="sec">${esc(q.t)}</div>`);return}
+  if(q.type==="note"){f.insertAdjacentHTML("beforeend",`<div class="note"><b>${esc(q.t)}</b>${esc(q.d)}</div>`);return}
+  const n="e"+q.id, star=q.req?'<span class="req">*</span>':'';
+  let body="";
+  if(q.type==="text")body=`<input type="text" name="${n}" autocomplete="off">`;
+  else if(q.type==="para")body=`<textarea name="${n}" ${q.short?'style="min-height:44px"':''}></textarea>`;
+  else if(q.type==="select")body=`<select name="${n}"><option value="">選擇</option>${q.opts.map(o=>`<option>${esc(o)}</option>`).join("")}</select>`;
+  else{
+    const t=q.type==="radio"?"radio":"checkbox";
+    body=q.opts.map(o=>`<label class="opt"><input type="${t}" name="${n}" value="${esc(o)}"><span>${esc(o)}</span></label>`).join("");
+    if(q.other)body+=`<label class="opt"><input type="${t}" name="${n}" value="__other_option__"><span>其他：</span><input class="other" type="text" name="${n}_other"></label>`;
+  }
+  f.insertAdjacentHTML("beforeend",`<div class="q" data-n="${n}"><div class="t">${esc(q.t)}${star}</div>${body}<div class="err">這是必填問題</div></div>`);
+});
+f.insertAdjacentHTML("beforeend",`<button class="submit" type="submit">送出，預約 1:1 諮詢</button>`);
+f.addEventListener("submit",async e=>{
+  e.preventDefault();
+  let first=null;const fd=new URLSearchParams();
+  Q.forEach(q=>{
+    if(!q.id)return;const n="e"+q.id;
+    const box=f.querySelector(`[data-n="${n}"]`);const els=[...f.querySelectorAll(`[name="${n}"]`)];
+    let vals=[];
+    if(q.type==="radio"||q.type==="check")vals=els.filter(x=>x.checked).map(x=>x.value);
+    else vals=els[0].value.trim()?[els[0].value.trim()]:[];
+    const otherTxt=(f.querySelector(`[name="${n}_other"]`)||{}).value;
+    if(vals.includes("__other_option__")&&!(otherTxt||"").trim())vals=vals.filter(v=>v!=="__other_option__");
+    const bad=q.req&&!vals.length;
+    box.classList.toggle("bad",bad);if(bad&&!first)first=box;
+    vals.forEach(v=>fd.append("entry."+q.id,v));
+    if(vals.includes("__other_option__"))fd.append(`entry.${q.id}.other_option_response`,otherTxt.trim());
+  });
+  if(first){first.scrollIntoView({behavior:"smooth",block:"center"});return}
+  const b=f.querySelector(".submit");b.disabled=true;b.textContent="送出中…";
+  try{
+    await fetch(`https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:fd});
+    f.style.display="none";document.getElementById("done").style.display="block";scrollTo({top:0,behavior:"smooth"});
+  }catch(err){b.disabled=false;b.textContent="送出失敗，請再試一次";}
+});
+</script>
+</body>
+</html>
