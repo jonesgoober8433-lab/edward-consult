@@ -45,6 +45,7 @@ h1,h2,h3{font-family:var(--serif);letter-spacing:.04em;text-wrap:balance;margin:
 .tag{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--gold-ink);background:var(--gold);padding:3px 12px;border-radius:99px;margin-bottom:14px}
 .hero h1{font-size:clamp(24px,5vw,30px);line-height:1.45;margin-bottom:14px;color:#fff8ea}
 .hero p{margin:0;font-size:15.5px;opacity:.93;line-height:1.85}
+.hero .plan{margin:14px 0 0;font-size:14px;background:rgba(255,248,234,.14);border-left:3px solid var(--gold);border-radius:8px;padding:8px 12px}
 .hero .facts{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none}
 .hero .facts li{font-size:13.5px;background:rgba(255,248,234,.12);border:1px solid rgba(255,248,234,.22);padding:4px 12px;border-radius:99px;white-space:nowrap}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;font:700 17px/1.2 var(--sans);cursor:pointer;padding:15px 26px;transition:transform .15s,background .15s,box-shadow .15s;text-align:center}
@@ -152,6 +153,7 @@ h1,h2,h3{font-family:var(--serif);letter-spacing:.04em;text-wrap:balance;margin:
     先陪你把錢的事看清楚<br>
     每週只開放少量 1:1 名額<br>
     留給真心想把財務整理好的朋友</p>
+    <p class="plan" id="planNote" hidden>✓ 你的「人生目標試算」已經帶進來了，Edward 諮詢前會先看</p>
     <ul class="facts"><li>⏱ 約 2 分鐘</li><li>🔒 只有 Edward 看得到</li><li>☕ 首次諮詢免費</li></ul>
     <button class="btn gold" id="start" type="button">開始填寫，預約 1:1 諮詢</button>
   </header>
@@ -330,6 +332,8 @@ h1,h2,h3{font-family:var(--serif);letter-spacing:.04em;text-wrap:balance;margin:
   const ENDPOINT = "";
   const FALLBACK = "https://docs.google.com/forms/d/e/1FAIpQLSehdMad5-KkAoZYLd29rQkWDhNoBJK2A7HniB-DaaABEtqLjg/viewform";
   const DRAFT = "edward-consult-draft-v1";
+  // 從 Blog「人生目標試算」帶過來的結果（網址 ?plan=…）
+  const PLAN = (new URLSearchParams(location.search).get("plan") || "").slice(0, 480);
 
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -378,6 +382,7 @@ h1,h2,h3{font-family:var(--serif);letter-spacing:.04em;text-wrap:balance;margin:
     d["聯絡方式"] = $("#contact").value.trim();
     d["電子郵件"] = $("#email").value.trim();
     d["社群帳號"] = $("#social").value.trim();
+    if (PLAN) d["試算結果"] = PLAN;
     return d;
   }
   function save() { const d = data(); d._step = i; store.set(d); }
@@ -438,6 +443,7 @@ h1,h2,h3{font-family:var(--serif);letter-spacing:.04em;text-wrap:balance;margin:
       return j($$("input:checked", g).map(x => { const t = x.closest(".opt").querySelector(".tx"); return (t.firstChild.textContent || t.textContent).trim(); })); };
     const rows = [["最想先處理", shown("pain")], ["放在心上", shown("困擾多久")], ["家庭狀況", shown("家庭狀況")], ["錢放在", shown("使用中的金融工具")],
       ["想要的生活", j(d["拿回時間想做什麼"])], ["稱呼", j(d["姓名"])], ["聯絡方式", j(d["聯絡方式"])], ["方便時段", j(d["方便聯絡時段"])]];
+    if (PLAN) rows.push(["我的試算", PLAN.replace(/^人生目標試算：/, "")]);
     $("#sum").innerHTML = rows.map(([k, v]) => `<div><dt>${k}</dt><dd></dd></div>`).join("");
     $$("#sum dd").forEach((dd, k) => dd.textContent = rows[k][1]);
   }
@@ -464,6 +470,7 @@ h1,h2,h3{font-family:var(--serif);letter-spacing:.04em;text-wrap:balance;margin:
     }
   };
 
+  if (PLAN) $("#planNote").hidden = false;
   restore();
   const d0 = store.get();
   if (d0._step > 0 && d0._step < steps.length - 1) { form.hidden = false; show(d0._step); }

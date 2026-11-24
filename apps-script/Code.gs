@@ -13,7 +13,7 @@ const NOTIFY_ME = true; // 每筆新預約寄一封信到你自己的 Gmail
 
 const COLUMNS = ['送出時間', '姓名', '聯絡方式', '電子郵件', '方便聯絡時段', '最想解決的痛點', '困擾多久', '家庭狀況',
   '使用中的金融工具', '拿回時間想做什麼', '貸款與槓桿駕駛技術', '過去理財學習花費', '目前職業', '所在縣市',
-  '得知管道', '社群帳號', '裝置', 'Notion 狀態'];
+  '得知管道', '社群帳號', '試算結果', '裝置', 'Notion 狀態'];
 
 function doPost(e) {
   let d;
@@ -72,6 +72,7 @@ function toNotion(d, now) {
     '所在縣市': txt(d['所在縣市']),
     '得知管道': sel(d['得知管道']),
     '社群帳號': txt(d['社群帳號']),
+    '備註': txt(d['試算結果'] ? '📊 ' + d['試算結果'] : ''),
   };
   if (d['電子郵件']) props['電子郵件'] = { email: d['電子郵件'] };
   Object.keys(props).forEach(k => props[k] === undefined && delete props[k]);
