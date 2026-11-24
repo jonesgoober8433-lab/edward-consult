@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>資產自動化地圖｜Edward 1:1 諮詢</title>
+<meta name="description" content="花 2 分鐘，讓 Edward 先看懂你的財務現況，1:1 諮詢時直接談你最在意的事。">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5ecdb;--card:#fffaf0;--fg:#3a2f25;--muted:#86745f;--line:#e8dcc3;
+  --accent:#a4602a;--accent-dark:#7f4719;--accent-ink:#fffaf0;--soft:#f4e8cf;--field:#fdf6e6;
+  --gold:#d9b57f;--gold-deep:#c49a5a;--gold-ink:#5a3d1c;--good:#4d7a36;--good-bg:#e6efd9;--bad:#a8392b;
+  --hero1:#5a3d1c;--hero2:#7f4719;--hero3:#a4602a;
+  --shadow:0 1px 0 rgba(120,88,48,.05),0 14px 30px -18px rgba(120,88,48,.35);
+  --sans:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
+  --serif:"Noto Serif TC","Songti TC","PMingLiU",Georgia,serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#17130f;--card:#221c16;--fg:#f1e6d4;--muted:#b3a189;--line:#3a3026;--accent:#d08a4c;--accent-dark:#e09a5c;--accent-ink:#1b140d;
+  --soft:#2c241b;--field:#1d1813;--gold:#c79d5f;--gold-deep:#b58a4c;--gold-ink:#f1e0c2;--good:#8fbf73;--good-bg:#24301c;--bad:#e07b6b;
+  --hero1:#2a1d10;--hero2:#4a3018;--hero3:#6b4320;--shadow:0 14px 30px -18px rgba(0,0,0,.6);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17130f;--card:#221c16;--fg:#f1e6d4;--muted:#b3a189;--line:#3a3026;--accent:#d08a4c;--accent-dark:#e09a5c;--accent-ink:#1b140d;
+  --soft:#2c241b;--field:#1d1813;--gold:#c79d5f;--gold-deep:#b58a4c;--gold-ink:#f1e0c2;--good:#8fbf73;--good-bg:#24301c;--bad:#e07b6b;
+  --hero1:#2a1d10;--hero2:#4a3018;--hero3:#6b4320;--shadow:0 14px 30px -18px rgba(0,0,0,.6);color-scheme:dark}
+*{box-sizing:border-box}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.75;text-wrap:pretty;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--serif);letter-spacing:.04em;text-wrap:balance;margin:0}
+.nw{white-space:nowrap}
+.wrap{max-width:680px;margin:0 auto;padding:18px 16px 64px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.back{color:var(--accent);font-weight:700;font-size:15px;text-decoration:none;padding:6px 2px}
+.back:hover{text-decoration:underline}
+.theme{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;display:grid;place-items:center;font-size:17px}
+
+/* 開場 */
+.hero{position:relative;overflow:hidden;border-radius:22px;padding:30px 26px 28px;color:#fdf3e2;background:linear-gradient(140deg,var(--hero1),var(--hero2) 55%,var(--hero3));box-shadow:var(--shadow)}
+.hero:after{content:"";position:absolute;right:-70px;top:-70px;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(217,181,127,.35),rgba(217,181,127,0) 70%)}
+.tag{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--gold-ink);background:var(--gold);padding:3px 12px;border-radius:99px;margin-bottom:14px}
+.hero h1{font-size:clamp(24px,5vw,30px);line-height:1.45;margin-bottom:14px;color:#fff8ea}
+.hero p{margin:0;font-size:15.5px;opacity:.93;line-height:1.85}
+.hero .facts{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none}
+.hero .facts li{font-size:13.5px;background:rgba(255,248,234,.12);border:1px solid rgba(255,248,234,.22);padding:4px 12px;border-radius:99px;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;font:700 17px/1.2 var(--sans);cursor:pointer;padding:15px 26px;transition:transform .15s,background .15s,box-shadow .15s;text-align:center}
+.btn:active{transform:scale(.98)}
+.btn.gold{width:100%;margin-top:22px;color:var(--gold-ink);background:linear-gradient(135deg,#f0d29b,#d9b57f 60%,#c49a5a);box-shadow:0 10px 24px -10px rgba(0,0,0,.45)}
+.btn.gold:hover{box-shadow:0 0 0 5px rgba(240,210,155,.25),0 10px 24px -10px rgba(0,0,0,.45)}
+.btn.main{background:var(--accent);color:var(--accent-ink)}
+.btn.main:hover{background:var(--accent-dark)}
+.btn.main:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--muted);padding:15px 14px;font-weight:600}
+.btn.ghost:hover{color:var(--accent)}
+
+/* 為什麼值得填 */
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 0}
+.why div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 12px;text-align:center;box-shadow:var(--shadow)}
+.why b{display:block;font-family:var(--serif);font-size:15.5px;margin:4px 0 2px}
+.why span{font-size:13px;color:var(--muted);line-height:1.6;display:block}
+.why i{font-style:normal;font-size:22px}
+
+/* 表單卡 */
+.card{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:22px 22px 20px}
+.prog{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.bar{flex:1;height:8px;background:var(--soft);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold-deep),var(--accent));border-radius:99px;transition:width .35s ease}
+.prog small{font-size:13px;color:var(--muted);white-space:nowrap;font-weight:600}
+.step{display:none;animation:in .3s ease}
+.step.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step{animation:none}.bar i{transition:none}}
+.kicker{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:6px}
+.step h2{font-size:clamp(20px,4.4vw,24px);line-height:1.5;margin-bottom:6px}
+.hint{color:var(--muted);font-size:14.5px;margin:0 0 16px}
+.tip{background:var(--soft);border-left:3px solid var(--gold-deep);border-radius:10px;padding:10px 14px;font-size:14.5px;margin:0 0 16px;color:var(--fg)}
+.tip b{color:var(--accent)}
+.opts{display:grid;gap:10px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{position:relative;display:flex;align-items:center;gap:12px;padding:13px 15px;border:1.5px solid var(--line);border-radius:14px;background:var(--field);cursor:pointer;transition:border-color .15s,background .15s;font-size:15.5px;line-height:1.5}
+.opt:hover{border-color:var(--gold-deep)}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt .ic{flex:none;width:36px;height:36px;border-radius:10px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;font-size:18px}
+.opt .tx{flex:1;min-width:0}
+.opt .tx small{display:block;color:var(--muted);font-size:13px;line-height:1.5}
+.opt .ck{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;color:transparent;font-size:13px;font-weight:700}
+.opt.multi .ck{border-radius:6px}
+.opt:has(input:checked){border-color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,var(--field))}
+.opt:has(input:checked) .ck{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.opt:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.field{margin-bottom:14px}
+.field label{display:block;font-weight:700;font-size:15px;margin-bottom:6px}
+.field label em{font-style:normal;color:var(--muted);font-weight:500;font-size:13px;margin-left:6px}
+.field input,.field textarea{width:100%;font:16px/1.6 var(--sans);color:var(--fg);background:var(--field);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;outline:0;transition:border-color .15s}
+.field textarea{min-height:120px;resize:vertical}
+.field input:focus,.field textarea:focus{border-color:var(--accent)}
+.examples{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.examples button{font:14px var(--sans);color:var(--accent);background:var(--card);border:1px dashed var(--gold-deep);border-radius:99px;padding:5px 12px;cursor:pointer}
+.err{display:none;color:var(--bad);font-size:14px;margin:10px 0 0;font-weight:600}
+.err.on{display:block}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:20px}
+.nav .btn.main{min-width:150px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+
+/* 送出前確認 */
+.sum{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:0 0 14px}
+.sum div{display:grid;grid-template-columns:7.5em 1fr;gap:10px;padding:10px 14px;border-top:1px solid var(--line);font-size:14.5px}
+.sum div:first-child{border-top:0}
+.sum dt{color:var(--muted);font-weight:600}
+.sum dd{margin:0;word-break:break-word}
+.promise{font-size:13.5px;color:var(--muted);line-height:1.7;margin:0}
+
+/* 完成 */
+.done{text-align:center;padding:12px 4px 6px}
+.done .seal{width:76px;height:76px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-size:34px;background:var(--good-bg);color:var(--good);border:2px solid color-mix(in srgb,var(--good) 40%,transparent)}
+.done h2{font-size:24px;margin-bottom:8px}
+.done p{margin:0 0 6px;color:var(--fg)}
+.next{text-align:left;margin:18px 0 0;padding:0;list-style:none;counter-reset:n}
+.next li{position:relative;padding:10px 0 10px 40px;border-top:1px dashed var(--line);font-size:15px}
+.next li:before{counter-increment:n;content:counter(n);position:absolute;left:0;top:10px;width:28px;height:28px;border-radius:50%;background:var(--soft);color:var(--accent);font-weight:700;display:grid;place-items:center;font-size:14px}
+.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:22px;line-height:1.8}
+
+@media (max-width:600px){
+  body{font-size:15px;line-height:1.7}
+  .hero{padding:24px 20px 22px;border-radius:18px}
+  .card{padding:18px 16px 16px;border-radius:18px}
+  .why{grid-template-columns:1fr;gap:8px}
+  .why div{display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px}
+  .why b{margin:0}
+  .opts.two{grid-template-columns:1fr}
+  .sum div{grid-template-columns:6.5em 1fr}
+  .nav .btn.main{min-width:0;flex:1}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="back" href="https://jonesgoober8433-lab.github.io/edward-blog/">← 回到 Edward 的 Blog</a>
+    <button class="theme" id="theme" type="button" aria-label="切換深色／淺色">◐</button>
+  </div>
+
+  <header class="hero" id="hero">
+    <span class="tag">EDWARD 1:1 諮詢</span>
+    <h1>訂製你專屬的<br>「資產自動化地圖」</h1>
+    <p>你好，我是 Edward<br>
+    不聊明牌，不急著推商品<br>
+    先陪你把錢的事看清楚<br>
+    每週只開放少量 1:1 名額<br>
+    留給真心想把財務整理好的朋友</p>
+    <ul class="facts"><li>⏱ 約 2 分鐘</li><li>🔒 只有 Edward 看得到</li><li>☕ 首次諮詢免費</li></ul>
+    <button class="btn gold" id="start" type="button">開始填寫，預約 1:1 諮詢</button>
+  </header>
+
+  <section class="why" aria-label="填完之後">
+    <div><i>🧭</i><b>先看懂你</b><span>諮詢前就知道你最在意什麼</span></div>
+    <div><i>🗺️</i><b>給你地圖</b><span>賺錢、存錢、花錢，一次理清</span></div>
+    <div><i>🤝</i><b>不硬推銷</b><span>你決定下一步，不勉強</span></div>
+  </section>
+
+  <form class="card" id="form" novalidate hidden>
+    <div class="prog" aria-hidden="true"><div class="bar"><i id="bar"></i></div><small id="pct">1 / 7</small></div>
+    <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <!-- 1 -->
+    <section class="step" data-key="pain">
+      <div class="kicker">第一步｜你的方向</div>
+      <h2>現在，你最想先處理<br>哪一件錢的事？</h2>
+      <p class="hint">憑直覺選，最多 2 個</p>
+      <div class="opts" data-name="pain" data-type="multi" data-max="2" data-min="1">
+        <label class="opt multi"><input type="checkbox" value="精緻窮，留不住本金"><span class="ic">💸</span><span class="tx">錢總是留不住<small>收入不差，月底卻存不到</small></span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="想建立非工資收入"><span class="ic">🌱</span><span class="tx">想多一份工作以外的收入<small>不想只靠薪水</small></span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="擔心通膨吃掉存款"><span class="ic">📉</span><span class="tx">存款放著，怕被通膨吃掉<small>錢在銀行，越放越薄</small></span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="缺乏獨立判斷力"><span class="ic">🧩</span><span class="tx">想投資，但不知道該信誰<small>資訊太多，自己判斷不了</small></span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="保障缺口，怕意外打亂"><span class="ic">🛡️</span><span class="tx">怕生病或意外，打亂一切<small>保單買了，卻不確定夠不夠</small></span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="退休與傳承"><span class="ic">🏡</span><span class="tx">想提早規劃退休、照顧家人<small>勞保、勞退、留給下一代</small></span><span class="ck">✓</span></label>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="step" data-key="how-long">
+      <div class="kicker">第二步｜你的現況</div>
+      <h2>這件事放在心上<br>多久了？</h2>
+      <p class="tip" id="echo"></p>
+      <div class="opts two" data-name="困擾多久" data-type="single" data-min="1">
+        <label class="opt"><input type="radio" name="howlong" value="最近才開始想"><span class="tx">最近才開始想</span><span class="ck">✓</span></label>
+        <label class="opt"><input type="radio" name="howlong" value="半年左右"><span class="tx">半年左右</span><span class="ck">✓</span></label>
+        <label class="opt"><input type="radio" name="howlong" value="一年以上"><span class="tx">一年以上</span><span class="ck">✓</span></label>
+        <label class="opt"><input type="radio" name="howlong" value="很久了，一直沒處理"><span class="tx">很久了，一直沒處理</span><span class="ck">✓</span></label>
+      </div>
+      <p class="hint" style="margin:14px 0 6px;font-weight:700;color:var(--fg)">你的生活圈裡，有誰會跟著你的財務決定？<em style="font-style:normal;font-weight:500;color:var(--muted);font-size:13px">（可複選）</em></p>
+      <div class="opts two" data-name="家庭狀況" data-type="multi" data-min="1">
+        <label class="opt multi"><input type="checkbox" value="目前單身"><span class="tx">目前單身，一人吃飽</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="有伴侶"><span class="tx">有伴侶</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="有小孩"><span class="tx">有小孩</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="要照顧父母"><span class="tx">要照顧父母</span><span class="ck">✓</span></label>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="step" data-key="tools">
+      <div class="kicker">第三步｜你手上的工具</div>
+      <h2>目前錢放在哪些地方？</h2>
+      <p class="hint">可複選，不用填金額</p>
+      <div class="opts two" data-name="使用中的金融工具" data-type="multi" data-min="1" data-none="都沒有，想開始了解">
+        <label class="opt multi"><input type="checkbox" value="銀行活存／定存（台幣）"><span class="tx">台幣活存／定存</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="美元定存"><span class="tx">美元定存</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="儲蓄型保單"><span class="tx">儲蓄型保單</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="保障型保單"><span class="tx">醫療、壽險等保障型保單</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="股票"><span class="tx">股票／ETF</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="基金"><span class="tx">基金</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="債券"><span class="tx">債券</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="房地產"><span class="tx">房地產</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="期貨／選擇權"><span class="tx">期貨／選擇權</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="加密貨幣"><span class="tx">加密貨幣</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="都沒有，想開始了解"><span class="tx">都還沒有，想開始了解</span><span class="ck">✓</span></label>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="step" data-key="future">
+      <div class="kicker">第四步｜你想要的生活</div>
+      <h2>如果錢的事有人幫你顧好<br>多出來的時間和心力<br>你最想拿去做什麼？</h2>
+      <p class="hint">一句話就好，這會是我們諮詢的起點</p>
+      <div class="field">
+        <textarea id="future" maxlength="400" placeholder="例如：每年帶爸媽出國一次"></textarea>
+        <div class="examples" aria-label="參考例子">
+          <button type="button">陪家人多一點</button><button type="button">每年出國一次</button><button type="button">想提早退休</button><button type="button">想做自己的事業</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="step" data-key="mindset">
+      <div class="kicker">第五步｜你的理財習慣</div>
+      <h2>說到「借錢」和「槓桿」<br>你比較接近哪一種？</h2>
+      <p class="hint">沒有標準答案，只是幫我了解你的習慣</p>
+      <div class="opts" data-name="貸款與槓桿駕駛技術" data-type="single" data-min="1">
+        <label class="opt"><input type="radio" name="lev" value="洪水猛獸，能不碰就不碰"><span class="ic">🚧</span><span class="tx">能不碰就不碰<small>負債讓我很不安</small></span><span class="ck">✓</span></label>
+        <label class="opt"><input type="radio" name="lev" value="知道是資產引擎，不敢開上路"><span class="ic">🚗</span><span class="tx">知道用得好是助力，但還不敢用<small>想先搞懂風險在哪</small></span><span class="ck">✓</span></label>
+        <label class="opt"><input type="radio" name="lev" value="已在使用，想優化現金流"><span class="ic">⚙️</span><span class="tx">已經在用，想讓現金流更順<small>例如房貸、信貸、保單借款</small></span><span class="ck">✓</span></label>
+      </div>
+      <p class="hint" style="margin:16px 0 6px;font-weight:700;color:var(--fg)">過去一年，你大概花多少在理財學習上？<em style="font-style:normal;font-weight:500;color:var(--muted);font-size:13px">（書、課程都算）</em></p>
+      <div class="opts two" data-name="過去理財學習花費" data-type="single" data-min="1">
+        <label class="opt"><input type="radio" name="spend" value="5000 元以下"><span class="tx"><span class="nw">5,000 元</span>以下</span><span class="ck">✓</span></label>
+        <label class="opt"><input type="radio" name="spend" value="5000 到 10000"><span class="tx"><span class="nw">5,000～1 萬</span></span><span class="ck">✓</span></label>
+        <label class="opt"><input type="radio" name="spend" value="10000 到 20000"><span class="tx"><span class="nw">1～2 萬</span></span><span class="ck">✓</span></label>
+        <label class="opt"><input type="radio" name="spend" value="20000 到 50000"><span class="tx"><span class="nw">2～5 萬</span></span><span class="ck">✓</span></label>
+        <label class="opt"><input type="radio" name="spend" value="50000 以上"><span class="tx"><span class="nw">5 萬以上</span></span><span class="ck">✓</span></label>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="step" data-key="about">
+      <div class="kicker">第六步｜認識你</div>
+      <h2>怎麼稱呼你？</h2>
+      <p class="hint">讓我諮詢時用你習慣的方式稱呼你</p>
+      <div class="field"><label for="name">稱呼</label><input id="name" maxlength="40" autocomplete="name" placeholder="例如：王小明、小明"></div>
+      <div class="field"><label for="job">目前的工作<em>大概就好</em></label><input id="job" maxlength="60" autocomplete="organization-title" placeholder="例如：工程師、自己開店"></div>
+      <div class="field"><label for="city">住在哪個縣市<em>方便約見面</em></label><input id="city" maxlength="20" autocomplete="address-level1" placeholder="例如：台北市"></div>
+    </section>
+
+    <!-- 7 -->
+    <section class="step" data-key="contact">
+      <div class="kicker">最後一步｜怎麼找到你</div>
+      <h2>我會在 24 小時內<br>親自聯絡你</h2>
+      <p class="hint">只用來約諮詢時間，不會給任何第三方</p>
+      <div class="field"><label for="contact">LINE ID 或手機</label><input id="contact" maxlength="60" inputmode="text" autocomplete="tel" placeholder="例如：0912-345-678"></div>
+      <div class="field"><label for="email">Email<em>選填</em></label><input id="email" type="email" maxlength="100" autocomplete="email" placeholder="name@example.com"></div>
+      <p class="hint" style="margin:6px 0 6px;font-weight:700;color:var(--fg)">什麼時段比較方便聊？<em style="font-style:normal;font-weight:500;color:var(--muted);font-size:13px">（可複選）</em></p>
+      <div class="opts two" data-name="方便聯絡時段" data-type="multi" data-min="1">
+        <label class="opt multi"><input type="checkbox" value="平日白天"><span class="tx">平日白天</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="平日晚上"><span class="tx">平日晚上</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="假日白天"><span class="tx">假日白天</span><span class="ck">✓</span></label>
+        <label class="opt multi"><input type="checkbox" value="假日晚上"><span class="tx">假日晚上</span><span class="ck">✓</span></label>
+      </div>
+      <p class="hint" style="margin:16px 0 6px;font-weight:700;color:var(--fg)">你是從哪裡認識 Edward 的？</p>
+      <div class="opts two" data-name="得知管道" data-type="single" data-min="0">
+        <label class="opt"><input type="radio" name="src" value="Edward 的部落格"><span class="tx">Edward 的部落格</span><span class="ck">✓</span></label>
+        <label class="opt"><input type="radio" name="src" value="Instagram"><span class="tx">Instagram</span><span class="ck">✓</span></label>
+        <label class="opt"><input type="radio" name="src" value="Facebook"><span class="tx">Facebook</span><span class="ck">✓</span></label>
+        <label class="opt"><input type="radio" name="src" value="朋友分享的文章／限動"><span class="tx">朋友分享的文章／限動</span><span class="ck">✓</span></label>
+        <label class="opt"><input type="radio" name="src" value="客戶介紹"><span class="tx">朋友或客戶介紹</span><span class="ck">✓</span></label>
+        <label class="opt"><input type="radio" name="src" value="Edward 本人"><span class="tx">Edward 本人</span><span class="ck">✓</span></label>
+      </div>
+      <div class="field" style="margin-top:14px"><label for="social">IG 或 FB 帳號<em>選填，讓我先認識你</em></label><input id="social" maxlength="100" placeholder="例如：@edward"></div>
+    </section>
+
+    <!-- 8 確認 -->
+    <section class="step" data-key="review">
+      <div class="kicker">送出前｜你的地圖重點</div>
+      <h2>確認一下，這是你嗎？</h2>
+      <p class="hint">有要改的，按「上一步」回去</p>
+      <dl class="sum" id="sum"></dl>
+      <p class="promise">按下送出，代表你同意<br>Edward 用上面的方式跟你約時間<br>資料只有 Edward 本人看得到<br>不會轉給任何第三方</p>
+    </section>
+
+    <!-- 完成 -->
+    <section class="step" data-key="done">
+      <div class="done">
+        <div class="seal">✓</div>
+        <h2 id="doneTitle">收到了，謝謝你！</h2>
+        <p>我會親自看過你的回答<br>再帶著準備好的地圖跟你聊</p>
+        <ul class="next">
+          <li><b>24 小時內</b>，我會用你留的方式聯絡你</li>
+          <li>一起約一個你方便的時段，<span class="nw">約 15～20 分鐘</span></li>
+          <li>諮詢時，我們直接從你最在意的那件事開始</li>
+        </ul>
+        <p style="margin-top:18px"><a class="btn main" href="https://jonesgoober8433-lab.github.io/edward-blog/">先回 Blog 逛逛</a></p>
+      </div>
+    </section>
+
+    <p class="err" id="err" role="alert"></p>
+    <div class="nav" id="nav">
+      <button class="btn ghost" type="button" id="prev">← 上一步</button>
+      <button class="btn main" type="button" id="next">下一步 →</button>
+    </div>
+  </form>
+
+  <div class="foot">所有資料皆保密，只用於這次 1:1 諮詢<br>Edward｜保經事業部負責人・CFC</div>
+</div>
+
+<script>
+(() => {
+  // 送出到 Edward 自己的 Google Apps Script（同時寫進 Google 試算表＋Notion）。
+  const ENDPOINT = "";
+  const FALLBACK = "https://docs.google.com/forms/d/e/1FAIpQLSehdMad5-KkAoZYLd29rQkWDhNoBJK2A7HniB-DaaABEtqLjg/viewform";
+  const DRAFT = "edward-consult-draft-v1";
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const store = { get(){ try { return JSON.parse(localStorage.getItem(DRAFT)) || {}; } catch (e) { return {}; } },
+                  set(v){ try { localStorage.setItem(DRAFT, JSON.stringify(v)); } catch (e) {} },
+                  clear(){ try { localStorage.removeItem(DRAFT); } catch (e) {} } };
+
+  // 深淺色
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("edward-consult-theme"); if (t) root.dataset.theme = t; } catch (e) {}
+  $("#theme").onclick = () => {
+    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+    try { localStorage.setItem("edward-consult-theme", root.dataset.theme); } catch (e) {}
+  };
+
+  const form = $("#form"), steps = $$(".step", form), QN = steps.length - 2; // 最後兩頁是確認、完成
+  let i = 0;
+
+  $("#start").onclick = () => { form.hidden = false; show(0); form.scrollIntoView({ behavior: "smooth", block: "start" }); };
+
+  // 參考例子 → 填進文字框
+  $$(".examples button").forEach(b => b.onclick = () => {
+    const t = $("#future"); t.value = t.value.trim() ? t.value.trim() + "、" + b.textContent : b.textContent; save(); t.focus();
+  });
+
+  // 「都沒有」跟其他選項互斥；複選上限
+  $$(".opts[data-type=multi]").forEach(g => g.addEventListener("change", e => {
+    const none = g.dataset.none, max = +g.dataset.max || 99, boxes = $$("input", g);
+    if (none && e.target.value === none && e.target.checked) boxes.forEach(b => { if (b !== e.target) b.checked = false; });
+    else if (none && e.target.checked) boxes.forEach(b => { if (b.value === none) b.checked = false; });
+    if (boxes.filter(b => b.checked).length > max) { e.target.checked = false; flash(`最多選 ${max} 個，先挑最在意的`); }
+    save();
+  }));
+  form.addEventListener("input", save);
+  form.addEventListener("change", save);
+
+  const groupVal = g => { const c = $$("input:checked", g).map(x => x.value); return g.dataset.type === "single" ? (c[0] || "") : c; };
+  function data() {
+    const d = {};
+    $$(".opts", form).forEach(g => d[g.dataset.name] = groupVal(g));
+    d["拿回時間想做什麼"] = $("#future").value.trim();
+    d["姓名"] = $("#name").value.trim();
+    d["目前職業"] = $("#job").value.trim();
+    d["所在縣市"] = $("#city").value.trim();
+    d["聯絡方式"] = $("#contact").value.trim();
+    d["電子郵件"] = $("#email").value.trim();
+    d["社群帳號"] = $("#social").value.trim();
+    return d;
+  }
+  function save() { const d = data(); d._step = i; store.set(d); }
+  function restore() {
+    const d = store.get(); if (!Object.keys(d).length) return;
+    $$(".opts", form).forEach(g => { const v = [].concat(d[g.dataset.name] || []); $$("input", g).forEach(x => x.checked = v.includes(x.value)); });
+    $("#future").value = d["拿回時間想做什麼"] || ""; $("#name").value = d["姓名"] || ""; $("#job").value = d["目前職業"] || "";
+    $("#city").value = d["所在縣市"] || ""; $("#contact").value = d["聯絡方式"] || ""; $("#email").value = d["電子郵件"] || ""; $("#social").value = d["社群帳號"] || "";
+  }
+
+  const ECHO = {
+    "精緻窮，留不住本金": "錢留不住，通常不是賺太少，而是錢沒有「先分好去處」",
+    "想建立非工資收入": "工作以外的收入，要先有一筆不會被生活費吃掉的本金",
+    "擔心通膨吃掉存款": "存款不是不好，而是每一筆錢都該有自己的任務",
+    "缺乏獨立判斷力": "與其找明牌，不如先有一套自己看得懂的判斷順序",
+    "保障缺口，怕意外打亂": "保障是整張地圖的地基，地基穩了，投資才敢放手",
+    "退休與傳承": "退休規劃越早開始，每個月要準備的錢就越少",
+  };
+
+  function check(step) {
+    const key = step.dataset.key;
+    for (const g of $$(".opts", step)) {
+      const v = groupVal(g), min = +g.dataset.min || 0;
+      if ((Array.isArray(v) ? v.length : v ? 1 : 0) < min) return "這一題還沒選喔";
+    }
+    if (key === "future" && $("#future").value.trim().length < 2) return "寫一句就好，或點下面的例子";
+    if (key === "about" && !$("#name").value.trim()) return "請留下你的稱呼";
+    if (key === "contact") {
+      const c = $("#contact").value.trim(), m = $("#email").value.trim();
+      if (c.length < 4) return "請留下 LINE ID 或手機，我才能聯絡你";
+      if (m && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)) return "Email 格式好像不對，不想填可以留空";
+    }
+    return "";
+  }
+
+  function flash(msg) { const e = $("#err"); e.textContent = msg; e.classList.add("on"); }
+  function show(n) {
+    i = n; $("#err").classList.remove("on");
+    steps.forEach((s, k) => s.classList.toggle("on", k === n));
+    const key = steps[n].dataset.key;
+    const shown = Math.min(n + 1, QN);
+    $("#bar").style.width = (key === "done" ? 100 : key === "review" ? 96 : (n / QN) * 100 + 4) + "%";
+    $("#pct").textContent = key === "review" ? "最後確認" : key === "done" ? "完成" : `${shown} / ${QN}`;
+    $("#prev").style.visibility = n === 0 ? "hidden" : "visible";
+    $("#nav").hidden = key === "done";
+    $("#next").textContent = key === "review" ? "送出，預約諮詢 ✓" : n === QN - 1 ? "看我的地圖重點 →" : "下一步 →";
+    if (key === "how-long") {
+      const p = data().pain || [], t = ECHO[p[0]];
+      $("#echo").innerHTML = t ? `<b>Edward 小提醒：</b>${t}` : ""; $("#echo").hidden = !t;
+    }
+    if (key === "review") drawSummary();
+    save();
+  }
+
+  function drawSummary() {
+    const d = data(), j = v => [].concat(v || []).filter(Boolean).join("、") || "—";
+    const shown = name => { const g = $(`.opts[data-name="${name}"]`, form);
+      return j($$("input:checked", g).map(x => { const t = x.closest(".opt").querySelector(".tx"); return (t.firstChild.textContent || t.textContent).trim(); })); };
+    const rows = [["最想先處理", shown("pain")], ["放在心上", shown("困擾多久")], ["家庭狀況", shown("家庭狀況")], ["錢放在", shown("使用中的金融工具")],
+      ["想要的生活", j(d["拿回時間想做什麼"])], ["稱呼", j(d["姓名"])], ["聯絡方式", j(d["聯絡方式"])], ["方便時段", j(d["方便聯絡時段"])]];
+    $("#sum").innerHTML = rows.map(([k, v]) => `<div><dt>${k}</dt><dd></dd></div>`).join("");
+    $$("#sum dd").forEach((dd, k) => dd.textContent = rows[k][1]);
+  }
+
+  $("#prev").onclick = () => { if (i > 0) show(i - 1); form.scrollIntoView({ behavior: "smooth", block: "start" }); };
+  $("#next").onclick = async () => {
+    const msg = check(steps[i]); if (msg) return flash(msg);
+    if (steps[i].dataset.key !== "review") { show(i + 1); form.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+    if ($("[name=website]", form).value) { show(i + 1); return; } // 機器人
+    if (!ENDPOINT) return flash("表單正在升級中，請先用舊版表單預約：" + FALLBACK);
+    const btn = $("#next"); btn.disabled = true; btn.textContent = "送出中…";
+    const d = data(); d["最想解決的痛點"] = d.pain; delete d.pain;
+    d["頁面"] = location.href; d["裝置"] = /Mobi|Android|iPhone/i.test(navigator.userAgent) ? "手機" : "電腦";
+    try {
+      const r = await fetch(ENDPOINT, { method: "POST", body: JSON.stringify(d) }); // text/plain，不觸發 CORS 預檢
+      let ok = r.ok; try { const j = await r.json(); ok = !!j.ok; } catch (e) {}
+      if (!ok) throw new Error("送出失敗");
+      store.clear();
+      $("#doneTitle").textContent = `收到了，${d["姓名"]}，謝謝你！`;
+      show(i + 1); form.scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch (e) {
+      btn.disabled = false; btn.textContent = "再送一次 ✓";
+      flash("網路好像不太穩，再按一次送出；還是不行的話，請直接私訊 Edward");
+    }
+  };
+
+  restore();
+  const d0 = store.get();
+  if (d0._step > 0 && d0._step < steps.length - 1) { form.hidden = false; show(d0._step); }
+})();
+</script>
+</body>
+</html>
